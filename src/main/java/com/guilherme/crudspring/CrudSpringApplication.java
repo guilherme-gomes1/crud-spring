@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.guilherme.crudspring.enums.Category;
+import com.guilherme.crudspring.enums.Status;
 import com.guilherme.crudspring.model.Course;
 import com.guilherme.crudspring.repository.CourseRepository;
 
@@ -22,7 +24,8 @@ public class CrudSpringApplication {
 
 			Course c = new Course();
 			c.setName("Angular");
-			c.setCategory("Front-end");
+			c.setCategory(Category.FRONT_END);
+			c.setStatus(Status.INACTIVE);
 
 			courseRepository.save(c);
 		};

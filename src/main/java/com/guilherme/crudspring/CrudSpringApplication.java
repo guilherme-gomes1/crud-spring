@@ -25,7 +25,7 @@ public class CrudSpringApplication {
 			Course c = new Course();
 			c.setName("Angular");
 			c.setCategory(Category.FRONT_END);
-			c.setStatus(Status.INACTIVE);
+			c.setStatus(Status.ACTIVE);
 
 			courseRepository.save(c);
 		};

@@ -5,11 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.guilherme.crudspring.dtos.CourseDTO;
 import com.guilherme.crudspring.dtos.mappers.CourseMapper;
-import com.guilherme.crudspring.enums.Category;
 import com.guilherme.crudspring.exceptions.RecordNotFoundException;
 import com.guilherme.crudspring.repository.CourseRepository;
 
@@ -36,7 +34,7 @@ public class CourseService {
             .collect(Collectors.toList());
     }
 
-    public CourseDTO findById(@PathVariable @NotNull @Positive Long id) {
+    public CourseDTO findById(@NotNull @Positive Long id) {
         return courseRepository.findById(id)
             .map(courseMapper::toDto)
             .orElseThrow(() -> new RecordNotFoundException(id));
@@ -50,14 +48,14 @@ public class CourseService {
         return courseRepository.findById(id)
             .map(recordFound -> {
                 recordFound.setName(course.name());
-                recordFound.setCategory(Category.FRONT_END);
+                recordFound.setCategory(this.courseMapper.convertCategoryValue(course.category()));
                 return courseRepository.save(recordFound);
             })
             .map(courseMapper::toDto)
             .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public void delete(@PathVariable @NotNull @Positive Long id) {
+    public void delete(@NotNull @Positive Long id) {
         courseRepository.delete(courseRepository.findById(id).
             orElseThrow(() -> new RecordNotFoundException(id)));
             
